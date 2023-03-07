@@ -1,0 +1,444 @@
+$Event(140700, Default, function() {
+    DisableNetworkSync();
+    SetSpEffect(10000, 142710);
+    SetSpEffect(10003, 142711);
+    ClearSpEffect(10003, 142710);
+    SetSpEffect(10004, 142712);
+    ClearSpEffect(10004, 142710);
+    SetSpEffect(10005, 142713);
+    ClearSpEffect(10005, 142710);
+    SetSpEffect(10006, 142714);
+    ClearSpEffect(10006, 142710);
+    SetSpEffect(10007, 142715);
+    ClearSpEffect(10007, 142710);
+    InitializeEvent(0, 140701, 0);
+});
+
+$Event(140701, Default, function() {
+    DisableNetworkSync();
+    InitializeEvent(0, 142700, 0);
+    InitializeEvent(0, 143700, 0);
+    InitializeEvent(0, 144700, 0);
+    InitializeEvent(0, 141700, 0);
+    InitializeEvent(0, 145702, 0);
+    InitializeEvent(0, 145703, 0);
+    InitializeEvent(0, 145704, 0);
+    InitializeEvent(0, 145705, 0);
+    InitializeEvent(0, 145706, 0);
+    InitializeEvent(0, 145707, 0);
+    InitializeEvent(0, 146800, 0);
+    for(let Player = 0; Player < 6; Player++) {
+        const hsp = 142710 + Player;
+        const esp = 142720 + Player;
+        if(CharacterHasSpEffect(10000, hsp, Equal, 1)) {
+            InitializeEvent(Player, 145701, esp);
+        }
+        WaitFor(ElapsedSeconds(0));
+    }
+});
+
+$Event(142700, Default, function() {
+    DisableNetworkSync();
+    for(let Level = 0; Level <= 713; Level++) {
+        const Sp = 145000 + Level;
+        LevelCheck |= PlayersSoulLevel() == Level;
+        if(LevelCheck) {
+            if(CharacterHasSpEffect(10000, 142710, Equal, 1)) {
+                SetSpEffect(400005000, Sp);
+                SetSpEffect(400005000, 142700);
+            }
+            SpCheck &= CharacterRatioHasSpEffect(400005000, Sp, NotEqual, 1);
+            SpCheck &= ElapsedSeconds(2.5);
+            WaitFor(SpCheck);
+            RestartEvent();
+        }
+        WaitFor(ElapsedSeconds(0));
+    }
+});
+
+$Event(143700, Restart, function() {
+    DisableNetworkSync();
+    for(let Rune = 0; Rune < 20; Rune++) {
+        ClearEventValue(1032310000, 10);
+        const RuneID = 2900 + Rune;
+        const RuneSP = 142800 + Rune;
+        const RuneSPF = 142900 + Rune;
+        Check |= PlayerHasItem(ItemType.Goods, RuneID);
+        if(Check) {
+            StoreItemAmountHeldInEventValue(ItemType.Goods, RuneID, 1032310000, 10);
+            InitializeEvent(0, 143800, RuneSP, RuneSPF);
+            WaitFor(EventFlag(1033310999));
+            SetEventFlagID(1033310999, OFF);
+        }
+        WaitFor(ElapsedSeconds(0));
+    }
+});
+
+$Event(143800, Default, function(X0_4, X4_4) {
+    DisableNetworkSync();
+    SetSpEffect(10000, X0_4);
+    SetSpEffect(10000, X4_4);
+    EventValueOperation(1032310000, 10, 1, 0, 10, CalculationType.Sub);
+    RestartIf(EventValue(1032310000, 10) > 0);
+    SetEventFlagID(1033310999, ON);
+});
+
+$Event(144700, Default, function() {
+    DisableNetworkSync();
+    EventValueOperation(1036610000, 1, 1, 0, 1, CalculationType.Assign);
+    for(let Offset = 0; Offset <= 35; Offset++) {
+        const Arrow = Offset * 10000 + 50000000;
+        const SPArrow = 143000 + Offset;
+        if(Offset <= 35) {
+            InitializeEvent(Offset+900, 144800, Arrow, SPArrow, 321000);
+        }
+        const GreatArrow = Offset * 10000 + 51000000;
+        const GreatSPArrow = 143100 + Offset;
+        if(Offset <= 6) {
+            InitializeEvent(Offset+800, 144800, GreatArrow, GreatSPArrow, 321000);
+        }
+        const Bolt = Offset * 10000 + 52000000;
+        const SPBolt = 143200 + Offset;
+        if(Offset <= 19) {
+            InitializeEvent(Offset+700, 144800, Bolt, SPBolt, 321000);
+        }
+        const GreatBolt = Offset * 10000 + 53000000;
+        const GreatSPBolt = 143300 + Offset;
+        if(Offset <= 3) {
+            InitializeEvent(Offset+600, 144800, GreatBolt, GreatSPBolt, 321000);
+        }
+        const Pot1 = 300 + Offset;
+        const SPot1 = 144000 + Pot1;
+        if(Offset <= 2) {
+            InitializeEvent(Offset+500, 144900, Pot1, SPot1, 322100);
+        }
+        const Pot2 = (32 + Offset) * 10;
+        const SPot2 = 144000 + Pot2;
+        if(Offset <= 16) {
+            InitializeEvent(Offset+400, 144900, Pot2, SPot2, 322100);
+        }
+        const Pot3 = (63 + Offset) * 10;
+        const SPot3 = 144000 + Pot3;
+        if(Offset <= 5) {
+            InitializeEvent(Offset+300, 144900, Pot3, SPot3, 322100);
+        }
+        if(Offset < 1) {
+            InitializeEvent(Offset+209, 144900, 430, 500431, 322100);
+            InitializeEvent(Offset+208, 144900, 330, 3121, 322100);
+            InitializeEvent(Offset+207, 144900, 321, 144321, 322100);
+            InitializeEvent(Offset+206, 144900, 351, 144351, 322100);
+            InitializeEvent(Offset+205, 144900, 391, 144391, 322100);
+            InitializeEvent(Offset+204, 144900, 510, 144510, 322100);
+            InitializeEvent(Offset+203, 144900, 600, 144600, 322100);
+            InitializeEvent(Offset+202, 144900, 610, 144610, 322100);
+            InitializeEvent(Offset+201, 144900, 661000, 144661, 322100);
+        }
+        
+        const Throw1 = (170 + Offset) * 10;
+        const SProw1 = 144000 + Throw1 - 1000;
+        if(Offset <= 6) {
+            InitializeEvent(Offset+100, 144900, Throw1, SProw1, 322100);
+        }
+        if(Offset < 1) {
+            InitializeEvent(Offset+14, 144900, 3030, 143304, 322100);
+            InitializeEvent(Offset+13, 144900, 3050, 143305, 322100);
+            InitializeEvent(Offset+12, 144900, 3051, 143306, 322100);
+            InitializeEvent(Offset+11, 144900, 3060, 143307, 322100);
+            InitializeEvent(Offset+10, 144900, 3070, 143308, 322100);
+            InitializeEvent(Offset+9, 144900, 3510, 143309, 322100);
+            InitializeEvent(Offset+8, 144900, 3580, 143310, 322100);
+            InitializeEvent(Offset+7, 144900, 3610, 143311, 322100);
+            InitializeEvent(Offset+6, 144900, 2030, 144851, 322100);
+            InitializeEvent(Offset+5, 144900, 2020, 144850, 322100);
+            InitializeEvent(Offset+4, 144900, 1830, 144830, 322100);
+            InitializeEvent(Offset+3, 144900, 1831, 144831, 322100);
+            InitializeEvent(Offset+2, 144900, 1840, 144840, 322100);
+            InitializeEvent(Offset+1, 144900, 1841, 144841, 322100);
+        }
+        if(Offset < 1) {
+            InitializeEvent(Offset+0, 144950, 1400, 144900, 341100, 142704, 0, 144910);
+            InitializeEvent(Offset+1, 144950, 1410, 144901, 341100, 142704, 0, 144911);
+            InitializeEvent(Offset+2, 144950, 1420, 144902, 341100, 142704, 0, 144912);
+            InitializeEvent(Offset+3, 144950, 1430, 144903, 341100, 142704, 0, 144913);
+            InitializeEvent(Offset+4, 144950, 1440, 144904, 341100, 142704, 0, 144914);
+            InitializeEvent(Offset+5, 144950, 1450, 144905, 341100, 142704, 0, 144915);
+            InitializeEvent(Offset+6, 144950, 1460, 144906, 341100, 142704, 0, 144916);
+            InitializeEvent(Offset+7, 144950, 1470, 144907, 341100, 142704, 0, 144917);
+            InitializeEvent(Offset+8, 144950, 1480, 144908, 341100, 142704, 0, 144918);
+            InitializeEvent(Offset+9, 144950, 1490, 144909, 341100, 142704, 0, 144919);
+            InitializeEvent(Offset+10, 144950, 1500, 144950, 341100, 142704, 1, 144960);
+            InitializeEvent(Offset+11, 144950, 1510, 144951, 341100, 142704, 1, 144961);
+            InitializeEvent(Offset+12, 144950, 1520, 144952, 341100, 142704, 1, 144962);
+            InitializeEvent(Offset+13, 144950, 1530, 144953, 341100, 142704, 1, 144963);
+            InitializeEvent(Offset+14, 144950, 1540, 144954, 341100, 142704, 1, 144964);
+            InitializeEvent(Offset+15, 144950, 1550, 144955, 341100, 142704, 1, 144965);
+            InitializeEvent(Offset+16, 144950, 1560, 144956, 341100, 142704, 1, 144966);
+            InitializeEvent(Offset+17, 144950, 1570, 144957, 341100, 142704, 1, 144967);
+            InitializeEvent(Offset+18, 144950, 1590, 144958, 341100, 142704, 1, 144968);
+            InitializeEvent(Offset+19, 144950, 1690, 144940, 341100, 142704, 0, 144943);
+            InitializeEvent(Offset+19, 144950, 3300, 144944, 341100, 142704, 0, 144947);
+       }
+       WaitFor(ElapsedSeconds(0));
+    }
+});
+
+$Event(144800, Default, function(X0_4, X4_4, X8_4) {
+    DisableNetworkSync();
+    WaitFor(CharacterHasSpEffect(10000, X4_4, Equal, 1)
+    && CharacterHasSpEffect(10000, X8_4, Equal, 1));
+    DirectlyGivePlayerItem(ItemType.Weapon, X0_4, 1036610000, 1);
+    WaitFor(CharacterHasSpEffect(10000, X4_4, NotEqual, 1));
+    RestartEvent();
+});
+
+$Event(144900, Default, function(X0_4, X4_4, X8_4) {
+    DisableNetworkSync();
+    WaitFor(CharacterHasSpEffect(10000, X4_4, Equal, 1)
+    && CharacterHasSpEffect(10000, X8_4, Equal, 1));
+    DirectlyGivePlayerItem(ItemType.Goods, X0_4, 1036610000, 1);
+    WaitFor(CharacterHasSpEffect(10000, X4_4, NotEqual, 1));
+    RestartEvent();
+});
+
+$Event(144950, Default, function(X0_4, X4_4, X8_4, X12_4, X16_4, X20_4) {
+    DisableNetworkSync();
+    WaitFor(CharacterHasSpEffect(10000, X4_4, Equal, 1));
+    ClearSpEffect(10000, X4_4);
+    SetSpEffect(10000, X20_4);
+    if(CharacterHasSpEffect(10000, X8_4, Equal, 1)) {
+        DirectlyGivePlayerItem(ItemType.Goods, X0_4, 1036610000, 1);
+        SetSpEffect(10000, X12_4);
+    }
+    if(X16_4 == 0) {
+        WaitFor(CharacterHasSpEffect(10000, X4_4, Equal, 1) || RandomElapsedSeconds(45, 90));
+    }
+    if(X16_4 == 1) {
+        WaitFor(CharacterHasSpEffect(10000, X4_4, Equal, 1) || RandomElapsedSeconds(15, 30));
+    }
+    ClearSpEffect(10000, X20_4);
+    RestartEvent();
+});
+
+$Event(145701, Default, function(X0_4) {
+    DisableNetworkSync();
+    WaitFor(CharacterHasSpEffect(10000, 322000, Equal, 1));
+    WaitRandomTimeSeconds(30, 90);
+    SetSpEffect(10000, 142660);
+    WaitFor((CharacterHasSpEffect(400005000, 142661, Equal, 1)
+    || CharacterHasSpEffect(10000, 142661, Equal, 1))
+    && CharacterHasSpEffect(10000, X0_4, Equal, 1)
+    || CharacterHasSpEffect(10000, 322000, NotEqual, 1));
+    ClearSpEffect(400005000, 142661);
+    ClearSpEffect(10000, 142661);
+    ClearSpEffect(10000, 142660);
+    RestartEvent();
+});
+
+$Event(145702, Default, function() {
+    DisableNetworkSync();
+    WaitFor(CharacterHasSpEffect(400005000, 142611, Equal, 1) || CharacterHasSpEffect(10000, 142611, Equal, 1));
+    WaitFixedTimeFrames(1);
+    ClearSpEffect(10000, 142610);
+    ClearSpEffect(400005000, 142611);
+    ClearSpEffect(10000, 142611);
+    SetSpEffect(10000, 142612);
+    WaitRandomTimeSeconds(15, 90);
+    ClearSpEffect(10000, 142612);
+    if(CharacterHasSpEffect(10000, 321200, Equal, 1)) {
+        SetSpEffect(10000, 142610);
+    }
+    RestartEvent();
+});
+
+$Event(145703, Default, function() {
+    DisableNetworkSync();
+    SetEventFlagID(1054267000, OFF);
+    WaitFor(CharacterHasSpEffect(10000, 142620, Equal, 1));
+    InitializeEvent(0, 146700, 0, 142620);
+    WaitFor(EventFlag(1054267000) || CharacterHasSpEffect(10000, 142620, NotEqual, 1));
+    RestartEvent();
+});
+
+$Event(145704, Default, function() {
+    DisableNetworkSync();
+    SetEventFlagID(1054267000, OFF);
+    SetEventFlagID(1054267010, OFF);
+    WaitFor(CharacterHasSpEffect(10000, 142621, Equal, 1));
+    InitializeEvent(0, 146700, 0, 142621);
+    InitializeEvent(1, 146700, 1, 142621);
+    WaitFor(EventFlag(1054267000) || EventFlag(1054267010) || CharacterHasSpEffect(10000, 142621, NotEqual, 1));
+    RestartEvent();
+});
+
+$Event(145705, Default, function() {
+    DisableNetworkSync();
+    SetEventFlagID(1054267000, OFF);
+    SetEventFlagID(1054267010, OFF);
+    SetEventFlagID(1054267020, OFF);
+    WaitFor(CharacterHasSpEffect(10000, 142622, Equal, 1));
+    InitializeEvent(0, 146700, 0, 142622);
+    InitializeEvent(1, 146700, 1, 142622);
+    InitializeEvent(2, 146700, 2, 142622);
+    WaitFor(EventFlag(1054267000) || EventFlag(1054267010) || EventFlag(1054267020) || CharacterHasSpEffect(10000, 142622, NotEqual, 1));
+    RestartEvent();
+});
+
+$Event(145706, Default, function() {
+    DisableNetworkSync();
+    SetEventFlagID(1054267060, OFF);
+    WaitFor(CharacterHasSpEffect(10000, 360900, Equal, 1));
+    if(HPRatio(10000, Equal, 1) >= 1) {
+        InitializeEvent(3, 146700, 3, 360900);
+    }
+    if(HPRatio(10000, Equal, 1) >= 0.75) {
+        InitializeEvent(4, 146700, 4, 360900);
+    }
+    if(HPRatio(10000, Equal, 1) >= 0.5) {
+        InitializeEvent(5, 146700, 5, 360900);
+    }
+    if(HPRatio(10000, Equal, 1) >= 0.25) {
+        InitializeEvent(6, 146700, 6, 360900);
+    }
+    WaitFor(EventFlag(1054267060) || CharacterHasSpEffect(10000, 360900, NotEqual, 1));
+    RestartEvent();
+});
+
+$Event(145707, Default, function() {
+    DisableNetworkSync();
+    SetEventFlagID(1054267100, OFF);
+    WaitFor(CharacterHasSpEffect(10000, 360800, Equal, 1));
+    if(HPRatio(10000, Equal, 1) <= 1) {
+        InitializeEvent(7, 146700, 7, 360800);
+    }
+    if(HPRatio(10000, Equal, 1) <= 0.75) {
+        InitializeEvent(8, 146700, 8, 360800);
+    }
+    if(HPRatio(10000, Equal, 1) <= 0.5) {
+        InitializeEvent(9, 146700, 9, 360800);
+    }
+    if(HPRatio(10000, Equal, 1) <= 0.25) {
+        InitializeEvent(10, 146700, 10, 360800);
+    }
+    WaitFor(EventFlag(1054267100) || CharacterHasSpEffect(10000, 360800, NotEqual, 1));
+    RestartEvent();
+});
+
+$Event(146700, Default, function(X0_4, X4_4, X8_4, X12_4, X16_4) {
+    DisableNetworkSync();
+    WEK = RandomElapsedSeconds(0, 120) || CharacterHasSpEffect(10000, X4_4, NotEqual, 1);
+    for(let EVENT = 0; EVENT <= 99; EVENT++) {
+        if(X0_4 == EVENT) {
+            const FLAG = 1054260000 + EVENT * 10;
+            const EAG = 1054267000 + EVENT * 10;
+            BatchSetEventFlags(FLAG, FLAG+9, OFF);
+            RandomlySetEventFlagInRange(FLAG, FLAG+9, ON);
+            for(let RANDOM = 0; RANDOM <= 9; RANDOM++) {
+                const RAG = FLAG + RANDOM;
+                if(EventFlag(RAG)) {
+                    const RUFF = 142690 + RANDOM;
+                    SetSpEffect(10000, RUFF);
+                    WaitFor(WEK);
+                    ClearSpEffect(10000, RUFF);
+                    SetEventFlagID(EAG, ON);
+                    EndEvent();
+                }
+            }
+        }
+        WaitFor(ElapsedSeconds(0));
+    }
+});
+
+$Event(146800, Default, function() {
+    DisableNetworkSync();
+    if(CharacterHasSpEffect(10000, 350400)){InitializeEvent(0, 146801, 350400, 0, 1, 0);}
+    if(CharacterHasSpEffect(10000, 320800)){InitializeEvent(1, 146801, 320800, 1, 1, 0);}
+    if(CharacterHasSpEffect(10000, 320810)){InitializeEvent(2, 146801, 320810, 2, 1, 0);}
+    if(CharacterHasSpEffect(10000, 312500)){InitializeEvent(3, 146801, 312500, 3, 1, 0);}
+    if(CharacterHasSpEffect(10000, 321300)){InitializeEvent(4, 146801, 321300, 4, 1, 0);}
+    if(CharacterHasSpEffect(10000, 361000)){InitializeEvent(5, 146801, 361000, 5, 1, 1);}
+    InitializeEvent(6, 146801, 0, 6, 1, 0);
+    if(CharacterHasSpEffect(10000, 311600)){InitializeEvent(7, 146801, 311600, 6, 0, 1);}
+    if(CharacterHasSpEffect(10000, 311700)){InitializeEvent(8, 146801, 311700, 7, 0, 1);}
+    if(CharacterHasSpEffect(10000, 311800)){InitializeEvent(9, 146801, 311800, 8, 0, 1);}
+    if(CharacterHasSpEffect(10000, 311900)){InitializeEvent(10, 146801, 311900, 9, 0, 1);}
+    if(CharacterHasSpEffect(10000, 312000)){InitializeEvent(11, 146801, 312000, 11, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340000)){InitializeEvent(12, 146801, 340000, 12, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340100)){InitializeEvent(13, 146801, 340100, 13, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340200)){InitializeEvent(14, 146801, 340200, 14, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340300)){InitializeEvent(15, 146801, 340300, 15, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340400)){InitializeEvent(16, 146801, 340400, 16, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340500)){InitializeEvent(17, 146801, 340500, 17, 0, 1);}
+    if(CharacterHasSpEffect(10000, 311610)){InitializeEvent(18, 146801, 311610, 18, 0, 1);}
+    if(CharacterHasSpEffect(10000, 311710)){InitializeEvent(19, 146801, 311710, 19, 0, 1);}
+    if(CharacterHasSpEffect(10000, 311810)){InitializeEvent(20, 146801, 311810, 20, 0, 1);}
+    if(CharacterHasSpEffect(10000, 311910)){InitializeEvent(21, 146801, 311910, 21, 0, 1);}
+    if(CharacterHasSpEffect(10000, 312010)){InitializeEvent(22, 146801, 312010, 22, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340010)){InitializeEvent(23, 146801, 340010, 23, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340110)){InitializeEvent(24, 146801, 340110, 24, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340210)){InitializeEvent(25, 146801, 340210, 25, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340310)){InitializeEvent(26, 146801, 340310, 26, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340410)){InitializeEvent(27, 146801, 340410, 27, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340510)){InitializeEvent(28, 146801, 340510, 28, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340020)){InitializeEvent(29, 146801, 340020, 29, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340120)){InitializeEvent(30, 146801, 340120, 30, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340220)){InitializeEvent(31, 146801, 340220, 31, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340320)){InitializeEvent(32, 146801, 340320, 32, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340420)){InitializeEvent(33, 146801, 340420, 33, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340520)){InitializeEvent(34, 146801, 340520, 34, 0, 1);}
+    if(CharacterHasSpEffect(10000, 340030)){InitializeEvent(35, 146801, 340030, 35, 0, 1);}
+    RestartEvent();
+});
+
+$Event(146801, Default, function(X0_4, X4_4, X8_4, X12_4) {
+    DisableNetworkSync();
+    for(let f = 0; f < 100; f++) {
+        if(f == X4_4) {
+            const SP = (1426000 + f) * 10;
+            check0 |= CharacterHasStateInfo(10000, 6950, Equal, 1);
+            check1 |= CharacterHasStateInfo(10000, 6951, Equal, 1);
+            check2 |= CharacterHasStateInfo(10000, 6952, Equal, 1);
+            check3 |= CharacterHasStateInfo(10000, 6953, Equal, 1);
+            check4 |= CharacterHasStateInfo(10000, 6954, Equal, 1);
+            check5 |= CharacterHasStateInfo(10000, 6955, Equal, 1);
+            check6 |= CharacterHasStateInfo(10000, 6956, Equal, 1);
+            check7 |= CharacterHasStateInfo(10000, 6957, Equal, 1);
+            check8 |= CharacterHasStateInfo(10000, 6958, Equal, 1);
+            check9 |= CharacterHasStateInfo(10000, 6959, Equal, 1);
+            check |= check0; check |= check1; check |= check2; check |= check3; check |= check4; check |= check5; check |= check6; check |= check7; check |= check8; check |= check9;
+            WaitFor(check);
+            if(X0_4 > 0){EndIf(!CharacterHasSpEffect(10000, X0_4));}
+            if(check0) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 0);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5000);}
+            } else if(check1) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 1);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5001);}
+            } else if(check2) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 2);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5002);}
+            } else if(check3) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 3);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5003);}
+            } else if(check4) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 4);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5004);}
+            } else if(check5) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 5);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5005);}
+            } else if(check6) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 6);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5006);}
+            } else if(check7) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 7);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5007);}
+            } else if(check8) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 8);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5008);}
+            } else if(check9) {
+                if(X8_4 == 1){SetSpEffect(10000, SP + 9);}
+                if(X12_4 == 1){SetSpEffect(400005000, SP + 5009);}
+            }
+            RestartEvent();
+        }
+    }
+});
